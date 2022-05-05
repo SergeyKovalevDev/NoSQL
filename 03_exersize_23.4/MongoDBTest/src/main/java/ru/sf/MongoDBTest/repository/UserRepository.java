@@ -8,4 +8,5 @@ import java.util.List;
 public interface UserRepository extends MongoRepository<User, String> {
     User findByFirstName(String firstname);
     List<User> findByEmail(String email);
+    Long deletePersonByFirstName(String firstName);
 }

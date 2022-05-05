@@ -18,8 +18,7 @@ public class MongoDbTestApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
-		System.out.println("blah-blah");
+	public void run(String... args) {
 		repository.deleteAll();
 		repository.save(new User("Tester", "Testerov", "test@test.com", "+1005224"));
 		repository.save(new User("SecondUser", "His latName","test@test.com","+795001"));
@@ -40,5 +39,19 @@ public class MongoDbTestApplication implements CommandLineRunner {
 		for (User User : repository.findByEmail("test@test.com")) {
 			System.out.println(User);
 		}
+	}
+
+	void saveUser(String firstName, String lastName, String email, String phone) {
+		repository.save(new User(firstName, lastName, email, phone));
+	}
+
+	void updateUser(String oldfirstName, String newfirstName) {
+		User user = repository.findByFirstName(newfirstName);
+		user.firstName = oldfirstName;
+		repository.save(user);
+	}
+
+	void deleteUser(String firstName){
+		repository.deletePersonByFirstName(firstName);
 	}
 }
